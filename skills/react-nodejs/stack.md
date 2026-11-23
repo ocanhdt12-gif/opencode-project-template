@@ -104,8 +104,8 @@ Always pin exact versions in `package.json`:
 > ⚠️ **Optional, KHÔNG bắt buộc.** Không phải dependency hiện tại của template. Chỉ cân nhắc khi
 > muốn gộp toolchain; template vẫn chạy tốt với Vite 8 + Vitest 5 + ESLint + Prettier như bảng trên.
 
-**Vite+ 1.x** (1.0 ra 9/2026; tại 10/2026 đã 1.4.0) gộp nhiều tool vào 1 dependency: Vite 8 + Vitest 5 + **Rolldown** +
-**Oxlint** + **Oxfmt** + **tsdown** (+ Vite Task). Binary `vp`.
+**Vite+ 1.x** (1.0 ra 9/2026; tại 11/2026 đã 1.7.0) gộp nhiều tool vào 1 dependency: Vite 8 + Vitest 5 + **Rolldown** +
+**Oxlint** (1.94.0, linter Rust ~50x ESLint) + **Oxfmt** (formatter Rust, thay Prettier) + **tsdown** (+ Vite Task). Binary `vp`.
 
 Điểm đáng cân nhắc nhất:
 
@@ -118,10 +118,14 @@ Always pin exact versions in `package.json`:
 hiện lẻ tẻ (README, `anti-slop`) và template **chưa có Oxfmt** → nếu đi Vite+ thì đó chính là phần
 toolchain còn thiếu, gộp lại sẽ bớt 3–4 config file rời.
 
+> **Nếu chưa muốn ôm cả Vite+**, có thể swap riêng linter/formatter sang Oxc: **Oxlint** (1.94.0) thay
+> ESLint + **Oxfmt** thay Prettier — đều viết bằng Rust, nhanh ~50x, cùng dòng công cụ với React
+> Compiler native (`oxc-transform-react`) template đã dùng. Đây là mảnh toolchain còn thiếu so với bảng DevOps.
+
 **Engine:** `vite-plus` yêu cầu `node ^22.18.0 || ^24.11.0 || >=26.0.0` — khớp baseline
 **Node 24 LTS** ở bảng Core (Node 26 cũng nằm trong dải hỗ trợ).
 
 **Khi nào KHÔNG nên đi:** project đã ổn định với ESLint/Prettier + plugin ESLint riêng, hoặc cần
 rule ESLint đặc thù chưa có bản Oxlint tương đương.
 
-Verify lại version trước khi dùng: `npm view vite-plus version` (tại 10/2026 = 1.4.0).
+Verify lại version trước khi dùng: `npm view vite-plus version` (tại 11/2026 = 1.7.0).
